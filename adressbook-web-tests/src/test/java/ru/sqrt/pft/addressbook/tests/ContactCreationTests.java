@@ -1,4 +1,4 @@
-package ru.sqrt.pft.addressbook;
+package ru.sqrt.pft.addressbook.tests;
 
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.AfterMethod;
@@ -8,8 +8,9 @@ import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.*;
+import ru.sqrt.pft.addressbook.model.ContactData;
 
-public class ContactCreationTests {
+public class ContactCreationTests  {
   FirefoxDriver wd;
 
   @BeforeMethod

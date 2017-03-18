@@ -1,4 +1,4 @@
-package ru.sqrt.pft.addressbook;
+package ru.sqrt.pft.addressbook.model;
 
 public class GroupData {
   private final String name;

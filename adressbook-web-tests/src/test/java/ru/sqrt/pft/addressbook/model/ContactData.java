@@ -1,4 +1,4 @@
-package ru.sqrt.pft.addressbook;
+package ru.sqrt.pft.addressbook.model;
 
 public class ContactData {
   private final String firstname;
