@@ -18,6 +18,10 @@ public class ContactHelper  extends HelperBase{
     click(By.xpath("//div[@id='content']/form/input[21]"));
   }
 
+  public void updateContact() {
+    click(By.name("update"));
+  }
+
 
 
   public void fillContactForm(ContactData contactData) {
@@ -38,5 +42,7 @@ public class ContactHelper  extends HelperBase{
   public void selectedContact() {
     wd.findElement(By.name("selected[]")).click();
   }
-
+  public void initContactModification () {
+    click(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img"));
+  }
 }
