@@ -1,5 +1,6 @@
 package ru.sqrt.pft.addressbook.tests;
 
+import org.openqa.selenium.remote.BrowserType;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import ru.sqrt.pft.addressbook.appmeneger.ApplicatManager;
@@ -7,7 +8,7 @@ import ru.sqrt.pft.addressbook.appmeneger.ApplicatManager;
 
 public class TestBase {
 
-  protected final ApplicatManager app = new ApplicatManager();
+  protected final ApplicatManager app = new ApplicatManager(BrowserType.IE);
 
   @BeforeMethod
   public void setUp() throws Exception {
