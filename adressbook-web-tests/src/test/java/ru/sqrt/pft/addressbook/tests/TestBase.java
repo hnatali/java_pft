@@ -8,7 +8,7 @@ import ru.sqrt.pft.addressbook.appmeneger.ApplicatManager;
 
 public class TestBase {
 
-  protected final ApplicatManager app = new ApplicatManager(BrowserType.IE);
+  protected final ApplicatManager app = new ApplicatManager(BrowserType.FIREFOX);
 
   @BeforeMethod
   public void setUp() throws Exception {
