@@ -8,9 +8,9 @@ import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.sqrt.pft.addressbook.model.ContactData;
 
-public class ContactHelper  extends HelperBase{
+public class ContactHelper  extends HelperBase {
   public ContactHelper(WebDriver wd) {
-    super (wd);
+    super(wd);
   }
 
   public void gotoAddNewPage() {
@@ -27,7 +27,6 @@ public class ContactHelper  extends HelperBase{
   }
 
 
-
   public void fillContactForm(ContactData contactData, boolean creation) {
     type(By.name("firstname"), contactData.getFirstname());
     type(By.name("lastname"), contactData.getLastname());
@@ -36,9 +35,11 @@ public class ContactHelper  extends HelperBase{
 
 
     if (creation) {
-      new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
+      if (contactData.getGroup() != null) {
+        new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
+      }
     } else {
-      Assert.assertFalse (isElementPresent (By.name("new_group")));
+      Assert.assertFalse(isElementPresent(By.name("new_group")));
     }
   }
 
@@ -51,7 +52,29 @@ public class ContactHelper  extends HelperBase{
   public void selectedContact() {
     wd.findElement(By.name("selected[]")).click();
   }
-  public void initContactModification () {
+
+  public void initContactModification() {
     click(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img"));
   }
+
+  private void returnToHomePage() {
+    if (isElementPresent(By.id("maintable"))) {
+      return;
+    }
+    click(By.linkText("home page"));
+  }
+
+  public void createContact(ContactData contact, boolean b) {
+    gotoAddNewPage();
+    fillContactForm(contact, b);
+    submitContactCreation();
+    returnToHomePage();
+
+  }
+
+
+  public boolean isThereAContact() {
+    return isElementPresent(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img"));
+  }
 }
+
