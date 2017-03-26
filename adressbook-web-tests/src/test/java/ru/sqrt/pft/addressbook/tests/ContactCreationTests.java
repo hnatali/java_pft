@@ -1,17 +1,20 @@
 package ru.sqrt.pft.addressbook.tests;
 
+import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.sqrt.pft.addressbook.model.ContactData;
 
-public class ContactCreationTests extends TestBase {
+public class ContactCreationTests extends TestBase
+{
 
   @Test
-  public void testContactCreation() {
+  public void testContactCreation()
+  {
     app.getContactHelper().gotoAddNewPage();
-    app.getContactHelper().fillContactForm(new ContactData("name11", null, null, null, "tests 41" ),true);
-    app.getContactHelper().submitContactCreation();
-    app.getNavigationHelper().returnToHomePage();
-
+    int before = app.getContactHelper().getContactCount();
+    app.getContactHelper().createContact(new ContactData("name11", null, null, null, null), true);
+    int after = app.getContactHelper().getContactCount();
+    Assert.assertEquals(after, before + 1);
   }
 
 }

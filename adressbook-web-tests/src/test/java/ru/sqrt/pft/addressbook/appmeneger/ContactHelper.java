@@ -8,17 +8,21 @@ import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.sqrt.pft.addressbook.model.ContactData;
 
-public class ContactHelper  extends HelperBase {
-  public ContactHelper(WebDriver wd) {
+public class ContactHelper  extends HelperBase
+{
+  public ContactHelper(WebDriver wd)
+  {
     super(wd);
   }
 
-  public void gotoAddNewPage() {
+  public void gotoAddNewPage()
+  {
     wd.findElement(By.linkText("add new")).click();
   }
 
 
-  public void submitContactCreation() {
+  public void submitContactCreation()
+  {
     click(By.xpath("//div[@id='content']/form/input[21]"));
   }
 
@@ -27,44 +31,52 @@ public class ContactHelper  extends HelperBase {
   }
 
 
-  public void fillContactForm(ContactData contactData, boolean creation) {
+  public void fillContactForm(ContactData contactData, boolean creation)
+  {
     type(By.name("firstname"), contactData.getFirstname());
     type(By.name("lastname"), contactData.getLastname());
     type(By.name("address"), contactData.getAddress());
     type(By.name("email"), contactData.getEmail());
-
-
-    if (creation) {
-      if (contactData.getGroup() != null) {
+    if (creation)
+    {
+      if (contactData.getGroup() != null)
+      {
         new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
       }
-    } else {
+    } else
+      {
       Assert.assertFalse(isElementPresent(By.name("new_group")));
-    }
+      }
   }
 
 
-  public void deleteContacts() {
+  public void deleteContacts()
+  {
     wd.findElement(By.xpath("//div[@id='content']/form[2]/div[2]/input")).click();
     wd.switchTo().alert().accept();
   }
 
-  public void selectedContact() {
+  public void selectedContact()
+  {
     wd.findElement(By.name("selected[]")).click();
   }
 
-  public void initContactModification() {
+  public void initContactModification()
+  {
     click(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img"));
   }
 
-  private void returnToHomePage() {
-    if (isElementPresent(By.id("maintable"))) {
+  private void returnToHomePage()
+  {
+    if (isElementPresent(By.id("maintable")))
+    {
       return;
     }
     click(By.linkText("home page"));
   }
 
-  public void createContact(ContactData contact, boolean b) {
+  public void createContact(ContactData contact, boolean b)
+  {
     gotoAddNewPage();
     fillContactForm(contact, b);
     submitContactCreation();
@@ -72,9 +84,15 @@ public class ContactHelper  extends HelperBase {
 
   }
 
-
-  public boolean isThereAContact() {
+  public boolean isThereAContact()
+  {
     return isElementPresent(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img"));
   }
+
+  public int getContactCount()
+  {
+    return  wd.findElements(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img")).size();
+  }
+
 }
 

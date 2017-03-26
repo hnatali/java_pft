@@ -6,17 +6,21 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import ru.sqrt.pft.addressbook.model.GroupData;
 
 
-public class GroupHelper extends HelperBase{
+public class GroupHelper extends HelperBase
+{
 
-  public GroupHelper(WebDriver wd) {
+  public GroupHelper(WebDriver wd)
+  {
     super(wd);
   }
 
-  public void returnToGroupPage() {
+  public void returnToGroupPage()
+  {
     click(By.linkText("group page"));
   }
 
-  public void submitGroupCreation() {
+  public void submitGroupCreation()
+  {
     click(By.name("submit"));
   }
 
@@ -26,27 +30,33 @@ public class GroupHelper extends HelperBase{
     type(By.name("group_footer"), groupData.getFooter());
   }
 
-  public void initGroupCreation() {
+  public void initGroupCreation()
+  {
     click(By.name("new"));
   }
 
-  public void deleteSelectedGroups() {
+  public void deleteSelectedGroups()
+  {
     click(By.name("delete"));
   }
 
-  public void selectGroup() {
+  public void selectGroup()
+  {
     click(By.name("selected[]"));
   }
 
-  public void initGroupModification() {
+  public void initGroupModification()
+  {
     click(By.name("edit"));
   }
 
-  public void sabmitGroupModification() {
+  public void sabmitGroupModification()
+  {
     click (By.name("update"));
   }
 
-  public void createGroup(GroupData group) {
+  public void createGroup(GroupData group)
+  {
     initGroupCreation();
     fillGroupForm(group);
     submitGroupCreation();
@@ -54,8 +64,14 @@ public class GroupHelper extends HelperBase{
   }
 
 
-  public boolean isThereAGroup() {
+  public boolean isThereAGroup()
+  {
     return isElementPresent (By.name("selected[]"));
+  }
+
+  public int getGroupCount()
+  {
+    return wd.findElements(By.name("selected[]")).size();
   }
 }
 
