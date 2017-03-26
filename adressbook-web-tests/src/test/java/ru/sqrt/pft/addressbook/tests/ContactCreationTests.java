@@ -4,18 +4,19 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.sqrt.pft.addressbook.model.ContactData;
 
+import java.util.List;
+
 public class ContactCreationTests extends TestBase
 {
 
   @Test
   public void testContactCreation()
   {
+    List<ContactData>  before = app.getContactHelper().getContactList();
     app.getContactHelper().gotoAddNewPage();
-    int before = app.getContactHelper().getContactCount();
     app.getContactHelper().createContact(new ContactData("name11", null, null, null, null), true);
-    int after = app.getContactHelper().getContactCount();
-    Assert.assertEquals(after, before + 1);
+    List<ContactData>  after = app.getContactHelper().getContactList();
+    Assert.assertEquals(after.size(), before.size() + 1);
   }
-
 }
 

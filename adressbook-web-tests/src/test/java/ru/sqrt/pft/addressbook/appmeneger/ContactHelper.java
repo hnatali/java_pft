@@ -3,10 +3,15 @@ package ru.sqrt.pft.addressbook.appmeneger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.sqrt.pft.addressbook.model.ContactData;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class ContactHelper  extends HelperBase
 {
@@ -56,9 +61,10 @@ public class ContactHelper  extends HelperBase
     wd.switchTo().alert().accept();
   }
 
-  public void selectedContact()
+  public void selectedContact(int index)
+
   {
-    wd.findElement(By.name("selected[]")).click();
+    wd.findElements(By.name("selected[]")).get(index).click();
   }
 
   public void initContactModification()
@@ -90,9 +96,22 @@ public class ContactHelper  extends HelperBase
   }
 
   public int getContactCount()
+
   {
-    return  wd.findElements(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img")).size();
+    return  wd.findElements(By.name("selected[]")).size();
   }
 
+  public List<ContactData> getContactList()
+  {
+    List<ContactData> groups =  new ArrayList<ContactData>();
+    List<WebElement> elements = wd.findElements(By.xpath("//table[@id='maintable']//tr[@name='entry']/td[3]"));
+    for (WebElement element : elements)
+    {
+      String name = element.getText();
+      ContactData contact = new ContactData(name,null,null, null,null);
+      groups.add(contact);
+    }
+    return groups;
+  }
 }
 
