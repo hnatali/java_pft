@@ -72,6 +72,11 @@ public class ContactHelper  extends HelperBase
     click(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img"));
   }
 
+  public void initContactModification(String id)
+  {
+    click(By.xpath("//a[@href='edit.php?id=" + id + "']"));
+  }
+
   private void returnToHomePage()
   {
     if (isElementPresent(By.id("maintable")))
@@ -103,15 +108,16 @@ public class ContactHelper  extends HelperBase
 
   public List<ContactData> getContactList()
   {
-    List<ContactData> groups =  new ArrayList<ContactData>();
-    List<WebElement> elements = wd.findElements(By.xpath("//table[@id='maintable']//tr[@name='entry']/td[3]"));
+    List<ContactData> contacts =  new ArrayList<ContactData>();
+    List<WebElement> elements = wd.findElements(By.cssSelector("tr[name='entry']"));
     for (WebElement element : elements)
     {
-      String name = element.getText();
-      ContactData contact = new ContactData(name,null,null, null,null);
-      groups.add(contact);
+      String id = element.findElement(By.name("selected[]")).getAttribute("id");
+      String firstName = element.findElement(By.xpath("td[3]")).getText();
+      ContactData  contact = new ContactData(id, firstName, null, null, null, null);
+      contacts.add(contact);
     }
-    return groups;
+    return contacts;
   }
 }
 
