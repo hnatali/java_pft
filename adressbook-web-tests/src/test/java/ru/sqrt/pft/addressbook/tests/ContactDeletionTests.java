@@ -1,6 +1,7 @@
 package ru.sqrt.pft.addressbook.tests;
 
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.sqrt.pft.addressbook.model.ContactData;
 import ru.sqrt.pft.addressbook.tests.TestBase;
@@ -9,17 +10,18 @@ import java.util.List;
 
 public class ContactDeletionTests extends TestBase
 {
-
-
-  @Test (enabled = false)
-  public void testContactDeletion()
+  @BeforeMethod
+  public void ensurePreconditions()
   {
     app.getNavigationHelper().gotoHomePage();
-
-    if (! app.getContactHelper().isThereAContact())
+    if (!app.getContactHelper().isThereAContact())
     {
-      app.getContactHelper().createContact (new ContactData("name11", null, null, null, null ),true);
+      app.getContactHelper().createContact(new ContactData("name11", null, null, null, null ), true);
     }
+  }
+  @Test
+  public void testContactDeletion()
+  {
     List<ContactData> before = app.getContactHelper().getContactList();
     app.getContactHelper().selectedContact(before.size() - 1);
     app.getContactHelper().deleteContacts();

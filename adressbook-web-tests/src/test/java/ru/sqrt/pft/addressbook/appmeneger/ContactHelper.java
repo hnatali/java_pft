@@ -95,6 +95,20 @@ public class ContactHelper  extends HelperBase
 
   }
 
+  public void modifyContact(List<ContactData> before, int index, ContactData modifiedContact) {
+   selectedContact(index);
+   initContactModification(before.get(index).getId());
+   fillContactForm(modifiedContact, true);
+   updateContact();
+   gotoHomePage();
+  }
+
+  public void gotoHomePage() {
+    if (isElementPresent (By.id("maintable"))) {
+      return;
+    }
+    click(By.linkText("home"));
+  }
   public boolean isThereAContact()
   {
     return isElementPresent(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img"));
