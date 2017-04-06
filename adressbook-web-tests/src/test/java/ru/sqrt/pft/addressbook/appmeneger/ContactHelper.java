@@ -1,16 +1,13 @@
 package ru.sqrt.pft.addressbook.appmeneger;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.sqrt.pft.addressbook.model.ContactData;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class ContactHelper  extends HelperBase
@@ -20,7 +17,7 @@ public class ContactHelper  extends HelperBase
     super(wd);
   }
 
-  public void gotoAddNewPage()
+  public void newPage()
   {
     wd.findElement(By.linkText("add new")).click();
   }
@@ -86,16 +83,16 @@ public class ContactHelper  extends HelperBase
     click(By.linkText("home page"));
   }
 
-  public void createContact(ContactData contact, boolean b)
+  public void create(ContactData contact, boolean b)
   {
-    gotoAddNewPage();
+    newPage();
     fillContactForm(contact, b);
     submitContactCreation();
     returnToHomePage();
 
   }
 
-  public void modifyContact(List<ContactData> before, int index, ContactData modifiedContact) {
+  public void modify(List<ContactData> before, int index, ContactData modifiedContact) {
    selectedContact(index);
    initContactModification(before.get(index).getId());
    fillContactForm(modifiedContact, true);
@@ -103,6 +100,19 @@ public class ContactHelper  extends HelperBase
    gotoHomePage();
   }
 
+  public void delete(int index) {
+    selectedContact(index);
+    deleteContacts();
+    homePage();
+  }
+
+
+  public void homePage() {
+    if (isElementPresent (By.id("maintable"))) {
+      return;
+    }
+    click(By.linkText("home"));
+  }
   public void gotoHomePage() {
     if (isElementPresent (By.id("maintable"))) {
       return;
@@ -120,7 +130,7 @@ public class ContactHelper  extends HelperBase
     return  wd.findElements(By.name("selected[]")).size();
   }
 
-  public List<ContactData> getContactList()
+  public List<ContactData> list()
   {
     List<ContactData> contacts =  new ArrayList<ContactData>();
     List<WebElement> elements = wd.findElements(By.cssSelector("tr[name='entry']"));

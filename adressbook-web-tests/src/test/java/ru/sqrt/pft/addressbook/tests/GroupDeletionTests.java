@@ -2,6 +2,7 @@ package ru.sqrt.pft.addressbook.tests;
 
 
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.sqrt.pft.addressbook.model.GroupData;
 
@@ -9,21 +10,31 @@ import java.util.List;
 
 public class GroupDeletionTests extends TestBase
 {
-
-  @Test(enabled = false)
-  public void testGroupDeletion()
+  @BeforeMethod
+  public void ensurePreconditions()
   {
-    List<GroupData> before = app.getGroupHelper().getGroupList();
-    app.getGroupHelper().selectGroup(before.size() - 1);
-    app.getGroupHelper().deleteSelectedGroups();
-    app.getGroupHelper().returnToGroupPage();
-    List<GroupData> after = app.getGroupHelper().getGroupList();
-    Assert.assertEquals(after.size(), before.size() - 1);
-    before.remove(before.size() - 1);
-
-      Assert.assertEquals (before, after);
+    app.goTo().groupPage();
+    if (app.group().list().size() == 0)
+    {
+      app.group().create(new GroupData("tests 42", null, null));
     }
   }
+
+  @Test
+  public void testGroupDeletion()
+  {
+    List<GroupData> before = app.group().list();
+    int index = before.size() - 1;
+    app.group().delete(index);
+    List<GroupData> after = app.group().list();
+    Assert.assertEquals(after.size(), before.size() - 1);
+
+    before.remove(index);
+    Assert.assertEquals (before, after);
+  }
+
+
+}
 
 
 
