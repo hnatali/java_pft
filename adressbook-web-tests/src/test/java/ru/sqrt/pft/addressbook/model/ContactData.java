@@ -70,7 +70,6 @@ public class ContactData {
     return group;
   }
 
-
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -78,12 +77,15 @@ public class ContactData {
 
     ContactData that = (ContactData) o;
 
+    if (id != that.id) return false;
     return firstname != null ? firstname.equals(that.firstname) : that.firstname == null;
   }
 
   @Override
   public int hashCode() {
-    return firstname != null ? firstname.hashCode() : 0;
+    int result = id;
+    result = 31 * result + (firstname != null ? firstname.hashCode() : 0);
+    return result;
   }
 
   @Override
