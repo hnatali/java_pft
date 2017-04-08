@@ -7,7 +7,6 @@ import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.sqrt.pft.addressbook.model.ContactData;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -60,11 +59,7 @@ public class ContactHelper  extends HelperBase
     wd.switchTo().alert().accept();
   }
 
-  public void selectedContact(int index)
 
-  {
-    wd.findElements(By.name("selected[]")).get(index).click();
-  }
 
   public void selectedContactById(int id)
 
@@ -74,10 +69,7 @@ public class ContactHelper  extends HelperBase
 
 
 
-  public void initContactModification()
-  {
-    click(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img"));
-  }
+
 
   public void initContactModification(int id)
   {
@@ -102,19 +94,15 @@ public class ContactHelper  extends HelperBase
 
   }
 
-  public void modify(List<ContactData> before, int index, ContactData modifiedContact) {
-   selectedContact(index);
-   initContactModification(before.get(index).getId());
+  public void modify(Set<ContactData> before, ContactData modifiedContact) {
+   selectedContactById(modifiedContact.getId());
+   initContactModification(modifiedContact.getId());
    fillContactForm(modifiedContact, true);
    updateContact();
    gotoHomePage();
   }
 
-  public void delete(int index) {
-    selectedContact(index);
-    deleteContacts();
-    homePage();
-  }
+
   public void delete(ContactData contact) {
     selectedContactById(contact.getId());
     deleteContacts();
@@ -144,18 +132,7 @@ public class ContactHelper  extends HelperBase
     return  wd.findElements(By.name("selected[]")).size();
   }
 
-  public List<ContactData> list()
-  {
-    List<ContactData> contacts =  new ArrayList<ContactData>();
-    List<WebElement> elements = wd.findElements(By.cssSelector("tr[name='entry']"));
-    for (WebElement element : elements)
-    {
-      int id = Integer.parseInt (element.findElement(By.name("selected[]")).getAttribute("id"));
-      String firstName = element.findElement(By.xpath("td[3]")).getText();
-      contacts.add(new ContactData().withId(id).withFirstname(firstName));
-    }
-    return contacts;
-  }
+
 
   public Set<ContactData> all()
   {
