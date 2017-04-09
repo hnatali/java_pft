@@ -1,18 +1,12 @@
 package ru.sqrt.pft.addressbook.tests;
 
-import org.hamcrest.CoreMatchers;
-import org.hamcrest.MatcherAssert;
-import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.sqrt.pft.addressbook.model.ContactData;
 import ru.sqrt.pft.addressbook.model.Contacts;
 
-import java.util.Set;
-
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.testng.Assert.assertEquals;
 
 public class ContactDeletionTests extends TestBase
 {

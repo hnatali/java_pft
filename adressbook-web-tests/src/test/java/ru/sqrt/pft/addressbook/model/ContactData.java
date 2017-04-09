@@ -1,12 +1,15 @@
 package ru.sqrt.pft.addressbook.model;
 
 public class ContactData {
-  private int id = Integer.MAX_VALUE;;
+  private int id = Integer.MAX_VALUE;
   private  String firstname;
   private  String lastname;
   private  String address;
   private  String email;
   private String group;
+  private String homePhone;
+  private String mobilePhone;
+  private String workPhone;
 
 
 
@@ -18,6 +21,22 @@ public class ContactData {
 
   public ContactData withFirstname(String firstname) {
     this.firstname = firstname;
+    return this;
+  }
+
+  public ContactData withHomePhone(String homePhone) {
+    this.homePhone = homePhone;
+    return this;
+  }
+
+  public ContactData withMobilePhone(String mobilePhone) {
+    this.mobilePhone = mobilePhone;
+    return this;
+
+  }
+
+  public ContactData withWorkPhone(String workPhone) {
+    this.workPhone = workPhone;
     return this;
   }
 
@@ -97,6 +116,15 @@ public class ContactData {
   }
 
 
+  public String getHomePhone() {
+    return homePhone;
+  }
 
+  public String getMobilePhone() {
+    return mobilePhone;
+  }
 
+  public String getWorkPhone() {
+    return workPhone;
+  }
 }
