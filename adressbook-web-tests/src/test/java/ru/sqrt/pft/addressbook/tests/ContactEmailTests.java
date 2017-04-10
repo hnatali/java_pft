@@ -13,7 +13,7 @@ public class ContactEmailTests extends TestBase {
 
 
   @Test
-  public void testContactPhones() {
+  public void testContactEmails() {
     app.goTo().homePage();
     ContactData contact = app.contact().allemails().iterator().next();
     ContactData contactInfoFromEditForm = app.contact().infoFromEditForm(contact);
@@ -23,7 +23,7 @@ public class ContactEmailTests extends TestBase {
     assertThat(contact.getEmail2(), equalTo(cleaned(contactInfoFromEditForm.getEmail2())));
     assertThat(contact.getEmail3(), equalTo(cleaned(contactInfoFromEditForm.getEmail3())));
   }
-  public String cleaned(String address) {
-    return address.replaceAll("\\s", "");
+  public String cleaned(String email) {
+    return email.replaceAll("\\s", "");
   }
 }

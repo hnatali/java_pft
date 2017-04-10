@@ -195,9 +195,9 @@ public class ContactHelper  extends HelperBase
       int id = Integer.parseInt(cells.get(0).findElement(By.tagName("input")).getAttribute("value"));
       String lastname = cells.get(1).getText();
       String firstname = cells.get(2).getText();
-      String[] address = cells.get(3).getText().split("\n");
+      String address = cells.get(3).getText();
       contacts.add(new ContactData().withId(id).withFirstname(firstname).withLastname(lastname)
-              .withAddress(address[0]));
+              .withAddress(address));
     }
     return contacts;
   }
@@ -213,13 +213,14 @@ public class ContactHelper  extends HelperBase
     String email = wd.findElement(By.name("email")).getAttribute("value");
     String email2 = wd.findElement(By.name("email2")).getAttribute("value");
     String email3 = wd.findElement(By.name("email3")).getAttribute("value");
+    String address = wd.findElement(By.cssSelector("textarea[name='address']")).getText();
 
     wd.navigate().back();
 
 
     return new ContactData().withId(contact.getId()).withFirstname(firstname).withLastname(lasttname)
             .withHomePhone(home).withMobilePhone(mobile).withWorkPhone(work)
-            .withEmail(email).withEmail2(email2).withEmail3(email3);
+            .withEmail(email).withEmail2(email2).withEmail3(email3).withAddress(address);
   }
 }
 
