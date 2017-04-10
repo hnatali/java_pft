@@ -178,9 +178,9 @@ public class ContactHelper  extends HelperBase
       int id = Integer.parseInt(cells.get(0).findElement(By.tagName("input")).getAttribute("value"));
       String lastname = cells.get(1).getText();
       String firstname = cells.get(2).getText();
-      String[] emails = cells.get(4).getText().split("\n");
+      String allemails = cells.get(4).getText();
       contacts.add(new ContactData().withId(id).withFirstname(firstname).withLastname(lastname)
-              .withEmail(emails[0]).withEmail2(emails[1]).withEmail3(emails[2]));
+              .withAllEmails( allemails));
     }
     return contacts;
   }
