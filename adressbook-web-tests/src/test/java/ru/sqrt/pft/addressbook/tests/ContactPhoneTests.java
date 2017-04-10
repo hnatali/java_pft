@@ -1,14 +1,9 @@
 package ru.sqrt.pft.addressbook.tests;
 
 
-import org.hamcrest.CoreMatchers;
-import org.hamcrest.MatcherAssert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.sqrt.pft.addressbook.model.ContactData;
-
-import java.util.HashSet;
-import java.util.Set;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -19,7 +14,7 @@ public class ContactPhoneTests  extends  TestBase
   public void ensurePreconditions()
   {
     app.goTo().homePage();
-    if (app.contact().all().size() == 0)
+    if (app.contact().allphones().size() == 0)
     {
       app.contact().create(new ContactData().withFirstname("name11")
               .withHomePhone("111").withMobilePhone("222").withWorkPhone("333"), true);
@@ -28,7 +23,7 @@ public class ContactPhoneTests  extends  TestBase
   @Test
   public void  testContactPhones() {
     app.goTo().homePage();
-    ContactData contact = app.contact().allall().iterator().next();
+    ContactData contact = app.contact().allphones().iterator().next();
     ContactData contactInfoFromEditForm = app.contact().infoFromEditForm(contact);
 
     assertThat(contact.getHomePhone(), equalTo(cleaned(contactInfoFromEditForm.getHomePhone())));
