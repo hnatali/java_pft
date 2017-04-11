@@ -16,8 +16,8 @@ public class ContactAddressTests extends TestBase {
     ContactData contactInfoFromEditForm = app.contact().infoFromEditForm(contact);
 
     assertThat(cleaned(contact.getAddress()), equalTo(cleaned(contactInfoFromEditForm.getAddress())));
-
   }
+
 
   public String cleaned(String address) {
     return address.replaceAll("\\s", "").replaceAll("[-()]", "");
