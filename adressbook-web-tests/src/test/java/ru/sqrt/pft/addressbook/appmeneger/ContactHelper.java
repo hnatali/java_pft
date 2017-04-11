@@ -40,7 +40,14 @@ public class ContactHelper  extends HelperBase
     type(By.name("firstname"), contactData.getFirstname());
     type(By.name("lastname"), contactData.getLastname());
     type(By.name("address"), contactData.getAddress());
+    type(By.name("home"), contactData.getHomePhone());
+    type(By.name("mobile"), contactData.getMobilePhone());
+    type(By.name("work"), contactData.getWorkPhone());
     type(By.name("email"), contactData.getEmail());
+    type(By.name("email2"), contactData.getEmail2());
+    type(By.name("email3"), contactData.getEmail3());
+
+
     if (creation)
     {
       if (contactData.getGroup() != null)
@@ -77,6 +84,11 @@ public class ContactHelper  extends HelperBase
     click(By.xpath("//a[@href='edit.php?id=" + id + "']"));
   }
 
+
+  public void initContactDetails(int id)
+  {
+    click(By.xpath("//a[@href='view.php?id=" + id + "']"));
+  }
   private void returnToHomePage()
   {
     if (isElementPresent(By.id("maintable")))
@@ -169,6 +181,27 @@ public class ContactHelper  extends HelperBase
     return contacts;
   }
 
+  public Set<ContactData> allinfo() {
+    Set<ContactData> contacts = new HashSet<ContactData>();
+    List<WebElement> rows = wd.findElements(By.name("entry"));
+    for (WebElement row : rows) {
+      List<WebElement> cells = row.findElements(By.tagName("td"));
+      int id = Integer.parseInt(cells.get(0).findElement(By.tagName("input")).getAttribute("value"));
+      String lastname = cells.get(1).getText();
+      String firstname = cells.get(2).getText();
+      String allphones = cells.get(5).getText();
+      String allemails = cells.get(4).getText();
+      String address = cells.get(3).getText();
+      String  allInfoDetails = firstname+lastname+address + allphones + allemails;
+      String  allinfo = firstname+"\n"+lastname +"\n"+ allphones+"\n"+allemails+"\n"+address.replaceAll("\\s", "");
+      contacts.add(new ContactData().withId(id).withFirstname(firstname).withLastname(lastname)
+              .withAllPhones(allphones) .withAllEmails(allemails).withAddress(address)
+              .withAllInfo(allinfo).withAllInfoDetails(allInfoDetails));
+    }
+    return contacts;
+  }
+
+
 
   public Set<ContactData> allemails() {
     Set<ContactData> contacts = new HashSet<ContactData>();
@@ -215,11 +248,16 @@ public class ContactHelper  extends HelperBase
     String address = wd.findElement(By.cssSelector("textarea[name='address']")).getText();
 
     wd.navigate().back();
-
-
     return new ContactData().withId(contact.getId()).withFirstname(firstname).withLastname(lasttname)
             .withHomePhone(home).withMobilePhone(mobile).withWorkPhone(work)
             .withEmail(email).withEmail2(email2).withEmail3(email3).withAddress(address);
   }
+  public String infoFromDetails(ContactData contact) {
+    initContactDetails(contact.getId());
+    String info = wd.findElement(By.id("content")).getText();//как из этой строки убрать \n?
+    wd.navigate().back();
+    return  info;
+  }
+
 }
 
