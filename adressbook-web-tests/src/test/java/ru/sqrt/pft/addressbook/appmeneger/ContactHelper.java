@@ -181,7 +181,7 @@ public class ContactHelper  extends HelperBase
     return contacts;
   }
 
-  public Set<ContactData> allinfo() {
+ public Set<ContactData> allinfo()  {
     Set<ContactData> contacts = new HashSet<ContactData>();
     List<WebElement> rows = wd.findElements(By.name("entry"));
     for (WebElement row : rows) {
@@ -192,11 +192,9 @@ public class ContactHelper  extends HelperBase
       String allphones = cells.get(5).getText();
       String allemails = cells.get(4).getText();
       String address = cells.get(3).getText();
-      String  allInfoDetails = firstname+lastname+address + allphones + allemails;
-      String  allinfo = firstname+"\n"+lastname +"\n"+ allphones+"\n"+allemails+"\n"+address.replaceAll("\\s", "");
+
       contacts.add(new ContactData().withId(id).withFirstname(firstname).withLastname(lastname)
-              .withAllPhones(allphones) .withAllEmails(allemails).withAddress(address)
-              .withAllInfo(allinfo).withAllInfoDetails(allInfoDetails));
+              .withAllPhones(allphones) .withAllEmails(allemails).withAddress(address));
     }
     return contacts;
   }
@@ -233,7 +231,6 @@ public class ContactHelper  extends HelperBase
     }
     return contacts;
   }
-
 
   public ContactData infoFromEditForm(ContactData contact) {
     initContactModification(contact.getId());

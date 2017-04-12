@@ -19,7 +19,7 @@ public class ContactComparingInfo extends TestBase {
     if (app.contact().all().size() == 0) {
       app.contact().create(new ContactData().withFirstname("name11").withLastname("name12")
               .withHomePhone("111").withMobilePhone("222").withWorkPhone("333")
-              .withEmail("email@1").withEmail2("email@2").withEmail3("email@3").withAddress("Санкт-Петербург Район  ул.Улица д.1"),
+              .withEmail("email@1").withEmail2("email@2").withEmail3("email@3").withAddress("Санкт-Петербург Район ул.Улица д.1"),
 
       true);
 
@@ -32,20 +32,33 @@ public class ContactComparingInfo extends TestBase {
     ContactData contact = app.contact().allinfo().iterator().next();
     ContactData contactInfoFromEditForm = app.contact().infoFromEditForm(contact);
 
-    assertThat(contact.getAllInfo(), equalTo(mergeAllInfo(contactInfoFromEditForm)));
-
+    assertThat(contact.getAllPhones(), equalTo(mergePhones(contactInfoFromEditForm)));
+    assertThat(contact.getAllEmails(), equalTo(mergeEmails(contactInfoFromEditForm)));
+    assertThat(cleaned(contact.getAddress()), equalTo(cleaned(contactInfoFromEditForm.getAddress())));
   }
 
-  private  String mergeAllInfo(ContactData contact) {
-    return Arrays.asList(contact.getFirstname(),contact.getLastname(),
-            contact.getHomePhone(),contact.getMobilePhone(),contact.getWorkPhone(),
-            contact.getEmail(), contact.getEmail2(), contact.getEmail3(),
-            contact.getAddress())
+
+  private  String mergePhones(ContactData contact) {
+    return Arrays.asList(contact.getHomePhone(),contact.getMobilePhone(),contact.getWorkPhone())
             .stream().filter((s) -> ! s.equals(""))
             .map(ContactComparingInfo::cleaned)
             .collect(Collectors.joining("\n"));
   }
-  public  static String cleaned(String info) {
-    return info.replaceAll("\\s", "").replaceAll("[-()]","");
+
+  private  String mergeEmails(ContactData contact)
+  {
+    return Arrays.asList(contact.getEmail(), contact.getEmail2(), contact.getEmail3())
+            .stream().filter((s) -> !s.equals(""))
+            .map(ContactComparingInfo::cleaned)
+            .collect(Collectors.joining("\n"));
   }
+
+
+  public  static String cleaned(String phoneEmail)
+  {
+    return phoneEmail.replaceAll("\\s", "").replaceAll("[-()]","");
+  }
+
+
 }
+
