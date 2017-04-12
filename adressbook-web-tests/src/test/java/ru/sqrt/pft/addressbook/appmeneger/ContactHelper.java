@@ -249,9 +249,10 @@ public class ContactHelper  extends HelperBase
             .withHomePhone(home).withMobilePhone(mobile).withWorkPhone(work)
             .withEmail(email).withEmail2(email2).withEmail3(email3).withAddress(address);
   }
+
   public String infoFromDetails(ContactData contact) {
     initContactDetails(contact.getId());
-    String info = wd.findElement(By.id("content")).getText();//как из этой строки убрать \n?
+    String info = wd.findElement(By.id("content")).getText();
     wd.navigate().back();
     return  info;
   }
