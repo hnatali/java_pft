@@ -1,6 +1,9 @@
 package ru.sqrt.pft.addressbook.generators;
 
 
+import com.beust.jcommander.JCommander;
+import com.beust.jcommander.Parameter;
+import com.beust.jcommander.ParameterException;
 import ru.sqrt.pft.addressbook.model.ContactData;
 import ru.sqrt.pft.addressbook.model.GroupData;
 
@@ -14,12 +17,31 @@ import java.util.List;
 
 public class ContactDataGenerator
 {
-  public  static  void  main(String[] arqs) throws IOException {
-    int count = Integer.parseInt(arqs[0]);
-    File file = new File(arqs[1]);
+  @Parameter (names = "-c", description = "Contact count")
+  public  int count;
 
+  @Parameter (names = "-f", description = "Target file")
+  public String file;
+
+
+  public  static  void  main(String[] arqs) throws IOException
+  {
+    ContactDataGenerator generator = new ContactDataGenerator();
+    JCommander JCommander = new JCommander(generator);
+    try
+    {
+      JCommander.parse(arqs);
+    } catch (ParameterException ex)
+    {
+      JCommander.usage();
+      return;
+    }
+    generator.run();
+  }
+
+  private void run() throws IOException {
     List<ContactData> contacts = genereateContacts(count);
-    save(contacts, file);
+    save(contacts, new File(file));
   }
 
   private static void save(List<ContactData> contacts, File file) throws IOException {
