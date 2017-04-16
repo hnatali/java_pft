@@ -36,6 +36,7 @@ public class ContactCreationTests extends TestBase
   @Test(dataProvider = "validContactsFromXml")
   public void testContactCreation(ContactData contact) {
     File photo = new File("src/test/resources/VOT.jpg");
+    app.contact().gotoHomePage();
     Contacts before = app.contact().all();
     app.contact().newPage();
     app.contact().create(contact, true);
