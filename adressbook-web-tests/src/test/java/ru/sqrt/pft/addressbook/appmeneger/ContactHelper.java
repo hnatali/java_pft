@@ -191,7 +191,7 @@ public class ContactHelper  extends HelperBase
       String lastname = cells.get(1).getText();
       String firstname = cells.get(2).getText();
       String allphones = cells.get(5).getText();
-      String allemails = cells.get(4).getText();
+      String allemails = cells.get(4).getText().replaceAll("[ ]+","");
       String address = cells.get(3).getText();
 
       contacts.add(new ContactData().withId(id).withFirstname(firstname).withLastname(lastname)

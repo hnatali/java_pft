@@ -80,7 +80,7 @@ public class ContactDataGenerator {
       contacts.add(new ContactData().withFirstname(String.format("name11 %s", i)).withLastname(String.format("name12 %s", i))
               .withHomePhone(String.format("111 %s", i)).withMobilePhone(String.format("222 %s", i)).withWorkPhone(String.format("333 %s", i))
               .withEmail(String.format("email@1 %s", i)).withEmail2(String.format("email@2 %s", i)).withEmail3(String.format("email@3 %s", i))
-              .withAddress(String.format("Санкт-Петербург Район  ул.Улица д.1  %s", i)));
+              .withAddress(String.format("Sankt-Peterburg st. Street b.1  %s", i)));
     }
     return contacts;
   }
