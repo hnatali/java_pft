@@ -8,7 +8,7 @@ import ru.sqrt.pft.addressbook.appmeneger.ApplicatManager;
 
 public class TestBase {
 
-  protected static final ApplicatManager app = new ApplicatManager(BrowserType.FIREFOX);
+  protected static final ApplicatManager app = new ApplicatManager(System.getProperty("browser", BrowserType.FIREFOX));
 
   @BeforeSuite
   public void setUp() throws Exception {
