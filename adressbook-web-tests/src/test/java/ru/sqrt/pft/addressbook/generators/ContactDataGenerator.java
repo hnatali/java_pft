@@ -16,62 +16,39 @@ import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ContactDataGenerator
-{
-  @Parameter (names = "-c", description = "Contact count")
-  public  int count;
+public class ContactDataGenerator {
 
-  @Parameter (names = "-f", description = "Target file")
+  @Parameter (names = "-c", description = "Contacn count" )
+  public int count;
+
+  @Parameter (names = "-f", description = "Target ")
   public String file;
 
-  @Parameter (names = "-d", description = "Data format")
-  public String format;
-
-  public  static  void  main(String[] arqs) throws IOException
-  {
-    ContactDataGenerator generator = new ContactDataGenerator();
-    JCommander JCommander = new JCommander(generator);
-    try
-    {
-      JCommander.parse(arqs);
-    } catch (ParameterException ex)
-    {
-      JCommander.usage();
+  public static void main(String[] arqs) throws IOException {
+    ContactDataGenerator  generator = new ContactDataGenerator();
+    JCommander jCommander = new JCommander(generator);
+    try {
+      jCommander.parse(arqs);
+    } catch (ParameterException ex) {
+      jCommander.usage();
       return;
     }
+
+
     generator.run();
   }
 
   private void run() throws IOException {
     List<ContactData> contacts = genereateContacts(count);
-    if (format.equals("csv"))
-    {
-      saveAsCsv(contacts, new File(file));
-    } else if (format.equals("json")) {
-      saveAsJson(contacts, new File(file));
-    } else {
-      System.out.println("Неизвестный формат" + format);
-    }
-
-    }
-
-  private void saveAsJson(List<ContactData> contacts, File file) throws IOException {
-    Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
-    String json = gson.toJson(contacts);
-    Writer writer = new FileWriter(file);
-    writer.write(json);
-    writer.close();
-
+    save(contacts, new File(file) );
   }
 
-
-  private static void saveAsCsv(List<ContactData> contacts, File file) throws IOException {
+  private  void save(List<ContactData> contacts, File file) throws IOException {
     Writer writer = new FileWriter(file);
-    for (ContactData contact : contacts)
-    {
-      writer.write(String.format("%s;%s;%s;%s;%s;%s;%s;%s;%s\n", contact.getFirstname(),contact.getFirstname(),
-              contact.getHomePhone(),contact.getMobilePhone(),contact.getWorkPhone(),
-              contact.getEmail(),contact.getEmail2(),contact.getEmail3(),
+    for (ContactData contact : contacts) {
+      writer.write(String.format("%s;%s;%s;%s;%s;%s;%s;%s;%s\n", contact.getFirstname(), contact.getFirstname(),
+              contact.getHomePhone(), contact.getMobilePhone(), contact.getWorkPhone(),
+              contact.getEmail(), contact.getEmail2(), contact.getEmail3(),
               contact.getAddress()));
 
     }
@@ -79,16 +56,15 @@ public class ContactDataGenerator
 
   }
 
-  private static List<ContactData> genereateContacts(int count) {
+  private  List<ContactData> genereateContacts(int count) {
     List<ContactData> contacts = new ArrayList<ContactData>();
     for (int i = 0; i < count; i++) {
-      contacts.add(new ContactData().withFirstname(String.format("name11 %s",  i)).withLastname(String.format("name12 %s",  i))
-              .withHomePhone(String.format("111 %s",  i)).withMobilePhone(String.format("222 %s",  i)).withWorkPhone(String.format("333 %s",  i))
-              .withEmail(String.format("email@1 %s",  i)).withEmail2(String.format("email@2 %s",  i)).withEmail3(String.format("email@3 %s",  i))
-              .withAddress(String.format("Санкт-Петербург Район  ул.Улица д.1  %s",  i)));
+      contacts.add(new ContactData().withFirstname(String.format("name11 %s", i)).withLastname(String.format("name12 %s", i))
+              .withHomePhone(String.format("111 %s", i)).withMobilePhone(String.format("222 %s", i)).withWorkPhone(String.format("333 %s", i))
+              .withEmail(String.format("email@1 %s", i)).withEmail2(String.format("email@2 %s", i)).withEmail3(String.format("email@3 %s", i))
+              .withAddress(String.format("Санкт-Петербург Район  ул.Улица д.1  %s", i)));
     }
     return contacts;
   }
 
-  }
-
+}
