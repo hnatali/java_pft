@@ -1,0 +1,35 @@
+<list>
+  <contact>
+    <firstname>name11 0</firstname>
+    <lastname>name12 0</lastname>
+    <address>Санкт-Петербург Район  ул.Улица д.1  0</address>
+    <email>email@1 0</email>
+    <email2>email@2 0</email2>
+    <email3>email@3 0</email3>
+    <homePhone>111 0</homePhone>
+    <mobilePhone>222 0</mobilePhone>
+    <workPhone>333 0</workPhone>
+  </contact>
+  <contact>
+    <firstname>name11 1</firstname>
+    <lastname>name12 1</lastname>
+    <address>Санкт-Петербург Район  ул.Улица д.1  1</address>
+    <email>email@1 1</email>
+    <email2>email@2 1</email2>
+    <email3>email@3 1</email3>
+    <homePhone>111 1</homePhone>
+    <mobilePhone>222 1</mobilePhone>
+    <workPhone>333 1</workPhone>
+  </contact>
+  <contact>
+    <firstname>name11 2</firstname>
+    <lastname>name12 2</lastname>
+    <address>Санкт-Петербург Район  ул.Улица д.1  2</address>
+    <email>email@1 2</email>
+    <email2>email@2 2</email2>
+    <email3>email@3 2</email3>
+    <homePhone>111 2</homePhone>
+    <mobilePhone>222 2</mobilePhone>
+    <workPhone>333 2</workPhone>
+  </contact>
+</list>
