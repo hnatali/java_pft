@@ -258,5 +258,64 @@ public class ContactHelper  extends HelperBase
     return  info;
   }
 
+  public void goToAllContacts() {
+    WebElement selectElement = wd.findElement(By.name("group"));
+    Select select = new Select(selectElement);
+    select.selectByVisibleText("[all]");
+  }
+
+  public void removeContactsFromGroup(int groupId) {
+    WebElement selectElement = wd.findElement(By.name("group"));
+    Select select = new Select(selectElement);
+    List<WebElement> options = select.getOptions();
+    int i = 0;
+    for (WebElement el : options) {
+      String optionValue = el.getAttribute("value");
+
+      if (String.valueOf(groupId).equalsIgnoreCase(optionValue)) {
+        break;
+      }
+      i++;
+    }
+    select.selectByIndex(i);
+    click(By.id("MassCB"));
+    click(By.name("remove"));
+  }
+  public void goToGroup(int id) {
+    WebElement selectElement = wd.findElement(By.name("group"));
+    Select select = new Select(selectElement);
+    List<WebElement> options = select.getOptions();
+    int i = 0;
+    for (WebElement el : options) {
+      String optionValue = el.getAttribute("value");
+
+      if (String.valueOf(id).equalsIgnoreCase(optionValue)) {
+        break;
+      }
+      i++;
+    }
+    select.selectByIndex(i);
+  }
+
+  public void addContactToGroup(int id) {
+    WebElement selectElement = wd.findElement(By.name("to_group"));
+    Select select = new Select(selectElement);
+    List<WebElement> options = select.getOptions();
+    int i = 0;
+    for (WebElement el : options) {
+      String optionValue = el.getAttribute("value");
+
+        if (String.valueOf(id).equalsIgnoreCase(optionValue)) {
+          break;
+        }
+      i++;
+    }
+    select.selectByIndex(i);
+    click(By.name("add"));
+  }
+
+  public void removeSelectedContact() {
+    click(By.name("remove"));
+  }
 }
 
